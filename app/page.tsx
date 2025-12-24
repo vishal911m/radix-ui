@@ -22,20 +22,8 @@ export default function Page() {
 }
 
 function ContactCard({contact}: {contact: Contact}) {
-  let {updateContact} = useContacts();
+  
   const [open, setOpen] = useState(false);
-  const [saving, setSaving] = useState(false);
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>){
-    event.preventDefault();
-    setSaving(true);
-
-    let data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log(data);
-
-    await updateContact(contact.id, data);
-    setOpen(false);
-  }
 
   return <div
     className="flex justify-between rounded-lg bg-white px-4 py-4 text-gray-900 shadow"
@@ -62,23 +50,8 @@ function ContactCard({contact}: {contact: Contact}) {
                 <Cross1Icon />
               </Dialog.Close>
             </div>
-            <form onSubmit={handleSubmit}>
-            <fieldset disabled={saving} className="group">
-            <div className="mt-8 group-disabled:opacity-50">
-              <ContactFields contact={contact} />
-            </div>
-            <div className="mt-8 space-x-6 text-right">
-              <Dialog.Close className="rounded px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-600">
-                Cancel
-              </Dialog.Close>
-              <button className="inline-flex items-center justify-center rounded bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600
-              group-disabled:pointer-events-none">
-                <Spinner className="absolute h-4 group-enabled:opacity-0"/>
-                <span className="group-disabled:opacity-0">Save</span>
-              </button>
-            </div>
-            </fieldset>
-            </form>
+
+            <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
@@ -86,12 +59,25 @@ function ContactCard({contact}: {contact: Contact}) {
   </div>
 }
 
-function ContactFields({
-  contact,
-}: {
-  contact: Contact
-}) {
+function ContactForm({contact, afterSave}: {contact: Contact, afterSave: ()=> void}) {
+  const [saving, setSaving] = useState(false);
+  let {updateContact} = useContacts();
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    setSaving(true);
+
+    let data = Object.fromEntries(new FormData(event.currentTarget))
+    console.log(data);
+
+    await updateContact(contact.id, data);
+    afterSave();
+  }
+
   return (
+  <form onSubmit={handleSubmit}>
+  <fieldset disabled={saving} className="group">
+  <div className="mt-8 group-disabled:opacity-50">
     <div className="space-y-6">
       <div>
         <label className="text-sm font-medium text-gray-900">Name</label>
@@ -127,5 +113,19 @@ function ContactFields({
         />
       </div>
     </div>
+  </div>
+  <div className="mt-8 space-x-6 text-right">
+    <Dialog.Close className="rounded px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-600">
+      Cancel
+    </Dialog.Close>
+    <button className="inline-flex items-center justify-center rounded bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600
+    group-disabled:pointer-events-none">
+      <Spinner className="absolute h-4 group-enabled:opacity-0"/>
+      <span className="group-disabled:opacity-0">Save</span>
+    </button>
+  </div>
+  </fieldset>
+  </form>
+
   );
 }
