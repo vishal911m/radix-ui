@@ -37,11 +37,11 @@ function ContactCard({contact}: {contact: Contact}) {
     </div>
     <div>
       <Modal open={open} onOpenChange={setOpen}>
-        {/* <Modal.Button className="rounded p-2 hover:bg-gray-200">
+        <Modal.Button className="rounded p-2 hover:bg-gray-200">
           <Pencil1Icon />
         </Modal.Button>
 
-        <Modal.Content title="Edit contact" >
+        {/* <Modal.Content title="Edit contact" >
           <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
         </Modal.Content> */}
       </Modal>
