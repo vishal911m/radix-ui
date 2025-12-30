@@ -1,19 +1,17 @@
 "use client";
 
+import { Contact, useContacts } from "@/lib/contacts";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
-import users from "./users.json";
-import { Contact, useContacts } from "@/lib/contacts";
-import { FormEvent } from "react";
 
 export default function Page() {
-  const {contacts} = useContacts();
-
+  let {contacts} = useContacts();
+  
   return (
     <div className="py-10">
       <div className="mx-auto max-w-sm space-y-4 rounded-lg bg-gray-200 p-4">
         {contacts.map((contact) => (
-          <ContactCard key={contact.id} contact={contact}/>
+          <ContactCard key={contact.id} contact={contact} /> 
         ))}
       </div>
     </div>
@@ -21,19 +19,12 @@ export default function Page() {
 }
 
 function ContactCard({contact}: {contact: Contact}){
-  const {updateContact} = useContacts();
+  let {updateContact} = useContacts();
 
-  const handleSubmit = async(event: FormEvent<HTMLFormElement>)=>{
-    event.preventDefault();
-    let data = Object.fromEntries(new FormData(event.currentTarget))
-    console.log(data);
-
-    await updateContact(contact.id, data)
-  }
-  return(
+  return (
     <div
-            className="flex justify-between rounded-lg bg-white px-4 py-4 text-gray-900 shadow"
-            key={contact.id}
+      className="flex justify-between rounded-lg bg-white px-4 py-4 text-gray-900 shadow"
+      key={contact.id}
     >
       <div>
         <p>{contact.name}</p>
@@ -56,7 +47,6 @@ function ContactCard({contact}: {contact: Contact}){
                   <Cross1Icon />
                 </Dialog.Close>
               </div>
-              <form onSubmit={handleSubmit}>
               <div className="mt-8">
                 <ContactFields contact={contact} />
               </div>
@@ -68,13 +58,12 @@ function ContactCard({contact}: {contact: Contact}){
                   Save
                 </button>
               </div>
-              </form>
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
       </div>
     </div>
-  )
+  );
 }
 
 function ContactFields({
@@ -91,7 +80,6 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.name}
-          name="name"
         />
       </div>
 
@@ -103,7 +91,6 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.role}
-          name="role"
         />
       </div>
       <div>
@@ -114,7 +101,6 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.email}
-          name="email"
         />
       </div>
     </div>
