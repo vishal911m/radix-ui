@@ -3,7 +3,7 @@
 import { Contact, useContacts } from "@/lib/contacts";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Page() {
   let {contacts} = useContacts();
@@ -21,13 +21,15 @@ export default function Page() {
 
 function ContactCard({contact}: {contact: Contact}){
   let {updateContact} = useContacts();
+  let [open, setOpen] = useState(false);
 
   const handleSubmit = async(event: FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
     let data = Object.fromEntries(new FormData(event.currentTarget));
     console.log(data);
 
-    await updateContact(contact.id, data)
+    await updateContact(contact.id, data);
+    setOpen(false);
   }
 
   return (
@@ -41,7 +43,7 @@ function ContactCard({contact}: {contact: Contact}){
         <p className="text-sm text-gray-500">{contact.email}</p>
       </div>
       <div>
-        <Dialog.Root>
+        <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger className="rounded p-2 hover:bg-gray-200">
             <Pencil1Icon />
           </Dialog.Trigger>
