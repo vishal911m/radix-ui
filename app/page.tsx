@@ -3,10 +3,11 @@
 import { Contact, useContacts } from "@/lib/contacts";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
+import { FormEvent } from "react";
 
 export default function Page() {
   let {contacts} = useContacts();
-  
+
   return (
     <div className="py-10">
       <div className="mx-auto max-w-sm space-y-4 rounded-lg bg-gray-200 p-4">
@@ -20,6 +21,14 @@ export default function Page() {
 
 function ContactCard({contact}: {contact: Contact}){
   let {updateContact} = useContacts();
+
+  const handleSubmit = async(event: FormEvent<HTMLFormElement>)=>{
+    event.preventDefault();
+    let data = Object.fromEntries(new FormData(event.currentTarget));
+    console.log(data);
+
+    await updateContact(contact.id, data)
+  }
 
   return (
     <div
@@ -47,6 +56,8 @@ function ContactCard({contact}: {contact: Contact}){
                   <Cross1Icon />
                 </Dialog.Close>
               </div>
+
+              <form onSubmit={handleSubmit}>
               <div className="mt-8">
                 <ContactFields contact={contact} />
               </div>
@@ -58,6 +69,8 @@ function ContactCard({contact}: {contact: Contact}){
                   Save
                 </button>
               </div>
+              </form>
+
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
@@ -80,6 +93,7 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.name}
+          name="name"
         />
       </div>
 
@@ -91,6 +105,7 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.role}
+          name="role"
         />
       </div>
       <div>
@@ -101,6 +116,7 @@ function ContactFields({
           className="mt-2 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm text-gray-900 shadow-sm sm:leading-6"
           type="text"
           defaultValue={contact.email}
+          name="email"
         />
       </div>
     </div>
