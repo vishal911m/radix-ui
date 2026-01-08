@@ -12,11 +12,9 @@ export default function Modal({
 }) {
   return (
      <Dialog.Root open={open} onOpenChange={onOpenChange}>
-        {/* <Dialog.Trigger className="rounded p-2 hover:bg-gray-200">
-          <Pencil1Icon />
-        </Dialog.Trigger>
+        {children}
 
-        <Dialog.Portal>
+        {/* <Dialog.Portal>
           <Dialog.Overlay className="data-[state=closed]:animate-[dialog-overlay-hide_200ms] data-[state=open]:animate-[dialog-overlay-show_200ms] 
           fixed inset-0 bg-black/50" />
           <Dialog.Content className="data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms] 
@@ -35,3 +33,5 @@ export default function Modal({
      </Dialog.Root> 
   )
 }
+
+Modal.Button = Dialog.Trigger
