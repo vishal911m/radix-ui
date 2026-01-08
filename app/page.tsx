@@ -41,9 +41,9 @@ function ContactCard({contact}: {contact: Contact}){
             <Pencil1Icon />
           </Modal.Button>
 
-          {/* <Modal.Content title="Edit contact">
+          <Modal.Content title="Edit contact">
             <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
-          </Modal.Content> */}
+          </Modal.Content>
         </Modal>
 
         {/* <Dialog.Root open={open} onOpenChange={setOpen}>
