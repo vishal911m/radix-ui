@@ -49,4 +49,5 @@ function ModalContent({
 }
 
 Modal.Button = Dialog.Trigger;
+Modal.Close = Dialog.Close;
 Modal.Content = ModalContent

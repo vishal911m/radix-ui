@@ -1,8 +1,7 @@
 "use client";
 
 import { Contact, useContacts } from "@/lib/contacts";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 import { FormEvent, useState } from "react";
 import { Spinner } from "./spinner";
 import Modal from "./modal";
@@ -128,9 +127,9 @@ function ContactForm({contact, afterSave}: {contact: Contact, afterSave: ()=>voi
           </div>
         </div>
         <div className="mt-8 space-x-6 text-right">
-          <Dialog.Close className="rounded px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-600">
+          <Modal.Close className="rounded px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-600">
             Cancel
-          </Dialog.Close>
+          </Modal.Close>
           <button className="inline-flex justify-center items-center rounded bg-green-500 px-4 py-2 text-sm font-medium 
           text-white hover:bg-green-600 group-disabled:pointer-events-none">
             <Spinner className="absolute h-4 group-enabled:opacity-0"/>
