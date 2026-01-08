@@ -1,21 +1,36 @@
 "use client";
 
 import { Contact, useContacts } from "@/lib/contacts";
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { FormEvent, useState } from "react";
 import { Spinner } from "./spinner";
 import Modal from "./modal";
+import Button from "./button";
 
 export default function Page() {
   let {contacts} = useContacts();
 
   return (
+    <div>
+      <header className="flex items-center justify-between bg-blue-950 p-4">
+        <p className="font-medium">ThingsCode</p>
+        <Modal>
+          <Modal.Button asChild>
+          <Button icon={<QuestionMarkCircledIcon />}>About</Button>
+          </Modal.Button>
+          <Modal.Content title="About Trello">
+            Some copy
+          </Modal.Content>
+        </Modal>
+      </header>
+
     <div className="py-10">
       <div className="mx-auto max-w-sm space-y-4 rounded-lg bg-gray-200 p-4">
         {contacts.map((contact) => (
           <ContactCard key={contact.id} contact={contact} /> 
         ))}
       </div>
+    </div>
     </div>
   );
 }
