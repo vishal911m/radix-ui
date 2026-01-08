@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Cross1Icon, Pencil1Icon } from "@radix-ui/react-icons";
 import { FormEvent, useState } from "react";
 import { Spinner } from "./spinner";
+import Modal from "./modal";
 
 export default function Page() {
   let {contacts} = useContacts();
@@ -36,15 +37,15 @@ function ContactCard({contact}: {contact: Contact}){
       </div>
       <div>
         <Modal open={open} onOpenChange={setOpen}>
-          <Modal.Button className="rounded p-2 hover:bg-gray-200">
+          {/* <Modal.Button className="rounded p-2 hover:bg-gray-200">
             <Pencil1Icon />
           </Modal.Button>
 
           <Modal.Content title="Edit contact">
             <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
-          </Modal.Content>
+          </Modal.Content> */}
         </Modal>
-        
+
         {/* <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger className="rounded p-2 hover:bg-gray-200">
             <Pencil1Icon />
