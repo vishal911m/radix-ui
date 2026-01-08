@@ -35,7 +35,17 @@ function ContactCard({contact}: {contact: Contact}){
         <p className="text-sm text-gray-500">{contact.email}</p>
       </div>
       <div>
-        <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Modal open={open} onOpenChange={setOpen}>
+          <Modal.Button className="rounded p-2 hover:bg-gray-200">
+            <Pencil1Icon />
+          </Modal.Button>
+
+          <Modal.Content title="Edit contact">
+            <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
+          </Modal.Content>
+        </Modal>
+        
+        {/* <Dialog.Root open={open} onOpenChange={setOpen}>
           <Dialog.Trigger className="rounded p-2 hover:bg-gray-200">
             <Pencil1Icon />
           </Dialog.Trigger>
@@ -56,7 +66,7 @@ function ContactCard({contact}: {contact: Contact}){
               <ContactForm contact={contact} afterSave={()=>setOpen(false)}/>
             </Dialog.Content>
           </Dialog.Portal>
-        </Dialog.Root>
+        </Dialog.Root> */}
       </div>
     </div>
   );
