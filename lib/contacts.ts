@@ -135,14 +135,16 @@ export function useContacts() {
 
   async function updateContact(
     id: string,
-    attrs: { [k: string]: FormDataEntryValue }
+    attrs: Partial<Omit<Contact, "id">>
   ) {
     let newContacts = contacts.map((c) => {
       if (c.id === id) {
-        return { id, ...attrs };
-      } else {
-        return c;
+        return {
+          ...c,
+          ...attrs,
+        };
       }
+      return c;
     });
 
     await sleep(1000);
