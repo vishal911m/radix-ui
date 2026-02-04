@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
-  basePath: "/Animating-a-Radix-dropdown-with-Framer-Motion",
+  basePath: "/radix-ui",
   images: {
     unoptimized: true,
   },
